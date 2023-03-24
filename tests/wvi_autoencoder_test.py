@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 import time
 import sys
 import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+from src.sinkhorn import Sinkhorn
+from src.wvi_autoencoder import *
 
 
 parser = argparse.ArgumentParser(description='VAE MNIST Example')
