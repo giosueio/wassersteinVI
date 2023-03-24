@@ -1,6 +1,9 @@
 import argparse
 import torch
 import torch.utils.data
+import random 
+from torch.utils.data import DataLoader,random_split
+import torch.nn.functional as F
 from torch import nn, optim
 from torchvision import datasets, transforms
 from torch.autograd import Variable
@@ -8,11 +11,37 @@ from torch.distributions import multivariate_normal
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+
 import sys
 import os
 
 from ..src.original_vae import *
 
+
+data_dir = 'dataset'
+
+train_dataset = torchvision.datasets.MNIST(data_dir, train=True, download=True)
+test_dataset  = torchvision.datasets.MNIST(data_dir, train=False, download=True)
+
+train_transform = transforms.Compose([
+transforms.ToTensor(),
+])
+
+test_transform = transforms.Compose([
+transforms.ToTensor(),
+])
+
+train_dataset.transform = train_transform
+test_dataset.transform = test_transform
+
+m=len(train_dataset)
+
+train_data, val_data = random_split(train_dataset, [int(m-m*0.2), int(m*0.2)])
+batch_size=20
+
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size)
+valid_loader = torch.utils.data.DataLoader(val_data, batch_size=batch_size)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size,shuffle=True)
 ### Set the random seed for reproducible results
 torch.manual_seed(0)
 
@@ -31,22 +60,21 @@ def plot_ae_outputs(encoder,decoder,n=10):
     for i in range(n):
       ax = plt.subplot(2,n,i+1)
       img = test_dataset[t_idx[i]][0].unsqueeze(0).to(device)
-      print(img.size())
       encoder.eval()
       decoder.eval()
       with torch.no_grad():
-         rec_img  = decoder(encoder(img))
+          rec_img  = decoder(encoder(img))
       plt.imshow(img.cpu().squeeze().numpy(), cmap='gist_gray')
       ax.get_xaxis().set_visible(False)
       ax.get_yaxis().set_visible(False)  
       if i == n//2:
-        ax.set_title('Original images')
+          ax.set_title('Original images')
       ax = plt.subplot(2, n, i + 1 + n)
       plt.imshow(rec_img.cpu().squeeze().numpy(), cmap='gist_gray')  
       ax.get_xaxis().set_visible(False)
       ax.get_yaxis().set_visible(False)  
       if i == n//2:
-         ax.set_title('Reconstructed images')
+          ax.set_title('Reconstructed images')
     plt.show()  
 
 if __name__ == "__main__":
