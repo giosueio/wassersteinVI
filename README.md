@@ -5,6 +5,9 @@ The implementation follows a different neural architecture from that of the orig
 
 The VAE was trained for 10 epochs, considering an extremely small minibatch of 20 samples per time in order to speed up the lengthy computations of Sinkhorn divergences. As per the Sinkhorn divergence algorithm, the implementation was translated to the log domain in order to avoid perpetually occurring numerical errors. The metric used in all the components of $C(x_1,z_1;x_2,z_2)$ was the L2 distance. For every call to the Sinkhorn algorithm, $L=20$ iterations were performed and the regularization term was chosen to be $\epsilon = 0.01$. 
 
+![image](https://user-images.githubusercontent.com/77994290/227616561-24d7116c-c273-4be6-b000-c2b9d0627427.png)
+
+
 ## Credits:
 - general structure: https://github.com/zqkhan/WVI_pytorch
 - neural architecture and plots: https://medium.com/dataseries/variational-autoencoder-with-pytorch-2d359cbf027b
