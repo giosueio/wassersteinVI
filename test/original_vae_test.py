@@ -13,7 +13,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from original_vae import .
+# from original_vae import .
 
 ### Set the random seed for reproducible results
 torch.manual_seed(0)

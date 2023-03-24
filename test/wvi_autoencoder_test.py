@@ -13,8 +13,8 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from sinkhorn import .
-from wvi_autoencoder import .
+# from sinkhorn import .
+# from wvi_autoencoder import .
 
 parser = argparse.ArgumentParser(description='VAE MNIST Example')
 parser.add_argument('--batch-size', type=int, default=20, metavar='N',
