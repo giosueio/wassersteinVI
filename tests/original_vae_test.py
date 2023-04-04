@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../')
+
 import argparse
 import torch
 import torch.utils.data
@@ -11,11 +14,9 @@ from torch.distributions import multivariate_normal
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-
-import sys
 import os
 
-from ..src.original_vae import *
+from src.original_vae import *
 
 
 data_dir = 'dataset'

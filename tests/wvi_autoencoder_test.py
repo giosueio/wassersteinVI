@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../')
+
 import argparse
 import torch
 import torch.utils.data
@@ -8,7 +11,6 @@ from torch.distributions import multivariate_normal
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys
 import os
 from src.sinkhorn import Sinkhorn
 from src.wvi_autoencoder import *
